@@ -1,3 +1,8 @@
 <?php
 
-echo "Hello from test controller";
+class TestController {
+
+    public function show(){
+        echo "show page";
+    }
+}
