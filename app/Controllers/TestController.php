@@ -1,18 +1,14 @@
 <?php
 
-class TestController {
+require_once "app/Controllers/Controller.php";
+require_once "app/Models/Product.php";
+class TestController  extends Controller {
 
     public function index(){
+        $products=Product::all();
+        print_r($products);
         return $this->view("test",['name'=>"Hassan"]);
     }
+    
 
-    private function view($filename="",$data=[]){
-        $file="views/".$filename.'.'.'php';
-
-        if (file_exists($file)) {
-            require_once $file;
-        }
-       
-      
-    }
 }

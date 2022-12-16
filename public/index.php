@@ -1,4 +1,4 @@
 <?php
 
 
-require_once 'app/config/web.php';
+require_once 'routes/web.php';
