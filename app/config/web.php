@@ -2,5 +2,5 @@
 
 require_once 'Router.php';
 
-Router::get("/test",'TestController',"show");
+Router::get("/test",'TestController',"index");
 
