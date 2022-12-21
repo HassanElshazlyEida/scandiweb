@@ -1,6 +1,9 @@
 <?php
 
 class Router {
+
+    protected static $passed_by_controller = 0;
+
     public static function handle($method="GET",$path="/",$controller="",$action=null){
       
         $currentMethod=$_SERVER['REQUEST_METHOD'];
@@ -13,7 +16,6 @@ class Router {
         $pattern='#^'.$root.$path.'$#siD';
      
         if(preg_match($pattern,$currentUri)){
-           
             if(is_callable($controller)){
                 $controller();
             }else {
@@ -24,13 +26,15 @@ class Router {
                     if(method_exists($controller,$action)){
                         $controller->$action();
                     }
+                }else {
+                    self::Redirect("/products", false);
                 }
+        
 
 
             }
             exit();
         }
-
     }
     public static function put($path="/",$controller ="",$action= null){
         return self::handle('PUT',$path,$controller,$action);
@@ -47,4 +51,5 @@ class Router {
     public static function get($path="/",$controller ="",$action= null){
         return self::handle('GET',$path,$controller,$action);
     }
+
 }
