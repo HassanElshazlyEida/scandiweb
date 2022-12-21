@@ -2,6 +2,7 @@
 
 class Database  {
 
+
     protected $db_name="mvc";
     protected $username="root";
     protected $password="";

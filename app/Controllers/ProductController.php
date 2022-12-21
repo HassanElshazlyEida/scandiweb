@@ -9,8 +9,5 @@ class ProductController  extends Controller {
     public function __construct(){
         $this->repository = new ProductRepository();
     }
-    public function test(){
-        echo 2;
-    }
 
 }

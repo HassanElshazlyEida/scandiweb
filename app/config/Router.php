@@ -27,7 +27,7 @@ class Router {
                         $controller->$action();
                     }
                 }else {
-                    self::Redirect("/products", false);
+                    return redirect("/products", false);
                 }
         
 
