@@ -7,3 +7,12 @@ if (!function_exists('redirect')) {
         exit();
    }
 } 
+if (!function_exists('render')) {
+    function render($path, $data =[]){
+        $file="views/".$path.'.'.'php';
+
+        if (file_exists($file)) {
+            require_once $file;
+        }
+   }
+} 

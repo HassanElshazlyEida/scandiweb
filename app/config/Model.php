@@ -7,6 +7,7 @@ require_once 'app/config/Database.php';
 class Model extends Database implements QueryBuilder {
 
     public function all(){
+       
         $stm=$this->pdo->query("SELECT * FROM $this->table ");
         return  $stm->fetchAll(self::$obj);
     }

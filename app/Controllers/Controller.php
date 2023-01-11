@@ -8,7 +8,7 @@ class Controller  {
     {
         $obj=$this->repository->model();
         return $obj->all();
-    }
+    }   
 
     public function index()
     {
