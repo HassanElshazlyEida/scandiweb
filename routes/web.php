@@ -3,21 +3,14 @@
 require_once 'app/config/Router.php';
 require_once 'app/config/Helper.php';
 
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$requestMethod = $_SERVER['REQUEST_METHOD'];
+
 Router::get("/",function(){
     return  redirect("/products");
 });
 
-// Method 1
+
 Router::get("/products",'ProductController',"index");
 
-// Method 2
-
-// Router::get("/products",ProductController::class,"test");
-
-
-// Method 3
-
-// Router::get("/products",function(){
-//     echo "is_callable";
-//     exit();
-// });
+Router::direct($uri, $requestMethod);

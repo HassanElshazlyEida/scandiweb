@@ -1,57 +1,72 @@
-<?php
+<?php 
+class Router
+{
+    protected static $routes = [
+        'GET' => [],
+        'POST' => [],
+        'PUT' => [],
+        'DELETE' => []
+    ];
 
-class Router {
+    public static function get($uri, $controller, $method = null)
+    {
+        self::addRoute('GET', $uri, $controller, $method);
+    }
 
-    protected static $passed_by_controller = 0;
+    public static function post($uri, $controller, $method = null)
+    {
+        self::addRoute('POST', $uri, $controller, $method);
+    }
 
-    public static function handle($method="GET",$path="/",$controller="",$action=null){
-      
-        $currentMethod=$_SERVER['REQUEST_METHOD'];
-        $currentUri=$_SERVER['REQUEST_URI'];
-        if($currentMethod != $method){
-            return false;
-        }
-        
-        $root="";
-        $pattern='#^'.$root.$path.'$#siD';
-       
-        if(preg_match($pattern,$currentUri)){
-            if(is_callable($controller)){
-                $controller();
-            }else {
-                $file='app/Controllers/'.$controller.'.'.'php';
-                if (file_exists($file)) {
-                    require_once $file;
-                    $controller= new $controller();
-                    if(method_exists($controller,$action)){
-                        $controller->$action();
-                    }
-                }else {
-                    return redirect("/products", false);
-                }
-        
+    public static function put($uri, $controller, $method = null)
+    {
+        self::addRoute('PUT', $uri, $controller, $method);
+    }
 
+    public static function delete($uri, $controller, $method = null)
+    {
+        self::addRoute('DELETE', $uri, $controller, $method);
+    }
 
-            }
-         
+    public static function addRoute($requestType, $uri, $controller, $method)
+    {
+        $uri = preg_replace('/{[\w]+}/', '([\w-]+)', $uri);
+        self::$routes[$requestType][$uri] = [$controller, $method];
+    }
+
+    public static function direct($uri, $requestType)
+    {
+        if (!array_key_exists($requestType, self::$routes)) {
+            render("error/500",'Invalid request type.');
             exit();
         }
-        
-    }
-    public static function put($path="/",$controller ="",$action= null){
-        return self::handle('PUT',$path,$controller,$action);
-    }
-    public static function patch($path="/",$controller ="",$action= null){
-        return self::handle('PATCH',$path,$controller,$action);
-    }
-    public static function delete($path="/",$controller ="",$action= null){
-        return self::handle('DELETE',$path,$controller,$action);
-    }
-    public static function post($path="/",$controller ="",$action= null){
-        return self::handle('POST',$path,$controller,$action);
-    }
-    public static function get($path="/",$controller ="",$action= null){
-        return self::handle('GET',$path,$controller,$action);
-    }
 
+        $parameters = [];
+        foreach (self::$routes[$requestType] as $route => $action) {
+            if (preg_match("#^$route$#", $uri, $matches)) {
+                $parameters = array_slice($matches, 1);
+                return self::callAction($action[0], $action[1], $parameters, $_GET);
+            }
+        }
+        render("error/500",'No route defined for this URI.');
+        exit();
+    }
+    public static function callAction($controller, $method, $parameters, $query)
+    {
+        if (is_callable($controller)) {
+            return $controller($parameters, $query);
+        }
+        $controllerNameSpace = "app/Controllers/";
+        $file= $controllerNameSpace.$controller.".php";
+        if (! file_exists($file)) {
+            render("error/500","The controller {$controller} not exists.");
+            exit();
+        }
+        require_once $file;
+        $controller = new $controller;
+        if (! method_exists($controller, $method)) {
+            render("{$controller} does not respond to the {$method} action.");
+        }
+        return $controller->$method($parameters, $query);
+    }
 }
