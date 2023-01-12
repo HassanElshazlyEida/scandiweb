@@ -12,13 +12,15 @@ class Database  {
 
     public function __construct()
     {
+     
         try {
             $this->pdo=new PDO("mysql:host=".$this->host.";dbname=".$this->db_name,$this->username,$this->password);
+           
         } catch (PDOException $e) {
-         
+            
             header("HTTP/1.0 500 Internal Server Error");
             render("error/500",$e->getMessage());
-            // exit();
+            exit();
           
         }
         

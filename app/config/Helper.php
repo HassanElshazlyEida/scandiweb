@@ -8,7 +8,7 @@ if (!function_exists('redirect')) {
    }
 } 
 if (!function_exists('render')) {
-    function render($path, $data =[]){
+    function    render($path, $data =[]){
         $file="views/".$path.'.'.'php';
 
         if (file_exists($file)) {
