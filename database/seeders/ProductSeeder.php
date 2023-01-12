@@ -12,7 +12,7 @@ class ProductSeeder extends Database implements Seeder
     protected $sql="";
     protected $stmt="";
     protected Product $model;
-    protected $create=true;
+    protected $create=false;
 
     public function __construct(){
         parent::__construct();
