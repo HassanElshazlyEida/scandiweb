@@ -5,11 +5,35 @@ require_once 'app/config/QueryBuilder.php';
 require_once 'app/config/Database.php';
 
 class Model extends Database implements QueryBuilder {
+    protected $itemsPerPage = 10;
+    protected $table="";
 
     public function all(){
        
         $stm=$this->pdo->query("SELECT * FROM $this->table ");
         return  $stm->fetchAll(self::$obj);
+    }
+    public function paginate(){
+        
+
+        $currentPage = $_GET['page'] ?? 1 ; //current page
+        $offset = (($_GET['page'] ?? 1 ) - 1) * $this->itemsPerPage; // start collecting from offset number
+      
+        $stmt = $this->pdo->prepare("SELECT * FROM  $this->table LIMIT ? OFFSET ?");
+        $stmt->bindValue(1, $this->itemsPerPage, PDO::PARAM_INT);
+        $stmt->bindValue(2, $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $totalItems=$this->pdo->query("SELECT COUNT(*) FROM $this->table ")->fetchColumn();
+
+        $data=[
+            "totalItems"=> $totalItems,
+            "currentPage"=>$currentPage,
+            "totalPages"=> ceil($totalItems / $this->itemsPerPage),
+            "data"=>$stmt->fetchAll()
+        ];
+    
+        return $data;
     }
     public  function find($id) {
         if (is_array($id) && empty($id)) return [];

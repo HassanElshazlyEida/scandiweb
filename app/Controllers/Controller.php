@@ -3,16 +3,27 @@
 class Controller  {
 
     protected $repository;
+    protected bool $with_paginate = false;
 
     public function all()
     {
         $obj=$this->repository->model();
         return $obj->all();
     }   
+    public function paginate()
+    {
+        $obj=$this->repository->model();
+        return $obj->paginate();
+    }  
 
     public function index()
     {
-        return $this->view("index",$this->all());
+        if($this->with_paginate){
+            $data=$this->paginate();
+        }else {
+            $data=$this->all();
+        }
+        return $this->view("index",$data);
     }
     public function create()
     {

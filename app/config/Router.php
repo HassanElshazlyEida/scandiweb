@@ -14,7 +14,7 @@ class Router {
         
         $root="";
         $pattern='#^'.$root.$path.'$#siD';
-     
+       
         if(preg_match($pattern,$currentUri)){
             if(is_callable($controller)){
                 $controller();
@@ -33,8 +33,10 @@ class Router {
 
 
             }
+         
             exit();
         }
+        
     }
     public static function put($path="/",$controller ="",$action= null){
         return self::handle('PUT',$path,$controller,$action);

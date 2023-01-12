@@ -12,6 +12,7 @@ class ProductSeeder extends Database implements Seeder
     protected $sql="";
     protected $stmt="";
     protected Product $model;
+    protected $create=true;
 
     public function __construct(){
         parent::__construct();
@@ -31,15 +32,19 @@ class ProductSeeder extends Database implements Seeder
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );";
 
-        // // create table 
+        // create table 
         $this->pdo->exec($this->sql);
 
-        $this->stmt();
+       
         
     }
     public function run(){
-
-        $this->prepare();
+        
+        if ($this->create){
+            $this->prepare();
+        }
+        // prepare statement
+        $this->stmt();
         // Create an array of products
         $products = [
             ['SKU1', 'Product 1', '10.00'],
