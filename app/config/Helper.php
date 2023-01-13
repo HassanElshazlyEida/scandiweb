@@ -14,5 +14,8 @@ if (!function_exists('render')) {
         if (file_exists($file)) {
             require_once $file;
         }
+        exit();
    }
 } 
+ 
+

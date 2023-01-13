@@ -52,5 +52,10 @@ class Model extends Database implements QueryBuilder {
     }
     public  function update($id,$data=[]){}
     public  function delete($id){}
+    public  function deleteAll($ids){
+        $sql = "DELETE FROM $this->table WHERE id IN (". implode(',', array_fill(0, count($ids), '?')).")";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($ids);
+    }
 
 }

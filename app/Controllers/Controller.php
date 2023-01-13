@@ -4,6 +4,7 @@ class Controller  {
 
     protected $repository;
     protected bool $with_paginate = false;
+    
 
     public function all()
     {
@@ -32,6 +33,15 @@ class Controller  {
 
     public function store()
     {
+    }
+    public function delete($parameters,$query)
+    {
+    }
+    public function deleteAll($parameters,$query)
+    {
+        $obj=$this->repository->model();
+        $obj->deleteAll($query["ids"]);
+        
     }
 
     protected function view($filename="",$data=[]){

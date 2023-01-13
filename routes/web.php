@@ -12,5 +12,6 @@ Router::get("/",function(){
 
 
 Router::get("/products",'ProductController',"index");
-
+Router::get("/products/create",'ProductController',"create");
+Router::delete("/products/delete",'ProductController',"deleteAll");
 Router::direct($uri, $requestMethod);
