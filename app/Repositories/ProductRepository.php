@@ -2,16 +2,22 @@
 
 
 require_once "app/Models/Product.php";
+require_once "app/Validations/ProductValidation.php";
+require_once "app/Repositories/Repository.php";
 
-class ProductRepository 
+class ProductRepository implements Repository
 {
     
-    function model()
+    public  function model()
     {
         return new Product;
     }
-    function views()
+    public  function views()
     {
         return "products/";
+    }
+    public  function Validator()
+    {
+        return  new ProductValidation();
     }
 }

@@ -11,5 +11,7 @@ class ProductController  extends Controller {
         $this->with_paginate = true;
         
     }
+    // Override for custom methods  ... 
+    
 
 }

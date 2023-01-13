@@ -1,5 +1,4 @@
 
-<?php include 'views/layouts/header.php'  ?>
     <div class="container mt-5">
         <div class="d-flex flex-row">
             <h1>Product List</h1>
@@ -54,14 +53,10 @@
                 </ul>
             </nav>
         </div>
-        <hr>
-        <div class="text-center mb-5">
-            <span> <i> Scandiweb Test assignment </i> </span>
-        </div>
+
        
     </div>
 
-<?php include 'views/layouts/footer.php'  ?>
 <script>
     $(".select-all-checkbox").on('change', function() {
         $(".delete-checkbox").prop("checked", this.checked);
@@ -74,7 +69,12 @@
         var checkedIds = $('.delete-checkbox:checked').map(function() {
             return $(this).attr('id');
         }).get();
-
+        if(checkedIds.length == 0){
+            $("#text-alert").text("Please select at least one product");
+            showAlert();
+            return ;
+        }
+       
         $.ajax({
             type: 'POST',
             url: '/products/delete',
