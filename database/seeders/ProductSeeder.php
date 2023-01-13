@@ -12,7 +12,7 @@ class ProductSeeder extends Database implements Seeder
     protected $sql="";
     protected $stmt="";
     protected Product $model;
-    protected $create=false;
+  
 
     public function __construct(){
         parent::__construct();
@@ -39,8 +39,8 @@ class ProductSeeder extends Database implements Seeder
         
     }
     public function run(){
-        
-        if ($this->create){
+        $input=readline('Do you want to create tables before seeding [y/n] ? ');
+        if ($input != 'n'){
             $this->prepare();
         }
         // prepare statement
@@ -52,6 +52,18 @@ class ProductSeeder extends Database implements Seeder
             ['SKU3', 'Product 3', '20.00'],
             ['SKU4', 'Product 4', '25.00'],
             ['SKU5', 'Product 5', '30.00'],
+            ['SKU6', 'Product 1', '10.00'],
+            ['SKU7', 'Product 2', '15.00'],
+            ['SKU8', 'Product 3', '20.00'],
+            ['SKU9', 'Product 4', '25.00'],
+            ['SKU10', 'Product 5', '30.00'],
+            ['SKU11', 'Product 1', '10.00'],
+            ['SKU12', 'Product 2', '15.00'],
+            ['SKU13', 'Product 3', '20.00'],
+            ['SKU14', 'Product 4', '25.00'],
+            ['SKU15', 'Product 5', '30.00'],
+            ['SKU16', 'Product 5', '30.00'],
+            
           
         ];
        
