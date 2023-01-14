@@ -15,6 +15,13 @@ class Product  extends Model  {
         "type_id"
     
     ];  
+    // override store method
+    public  function store($data){
+        // $keys=implode(",",array_keys($data));
+        // $values=implode("','",array_values($data));
+
+        // $this->pdo->query("INSERT INTO $this->table ($keys) VALUES('$values') ");
+    }
 
     
 }

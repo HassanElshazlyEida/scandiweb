@@ -11,5 +11,32 @@
         <label for="priceInput">Price <span class="text-danger">*</span></label>
         <input type="text" class="form-control" id="price" placeholder="Enter Price" required>
     </div>
+    <div class="form-group">
+        <label for="type-switcher">Type Switcher <span class="text-danger">*</span></label>
+        <select class="form-control" id="product-Type">
+            <option value="">Select .. </option>
+            <option value="book">Book</option>
+            <option value="furniture">Furniture</option>
+            <option value="dvd">DVD</option>
+        </select>
+    </div>
 
+    <div class="form-group book-input d-none">
+        <label for="size-input">Size <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="size-input">
+    </div>
+
+    <div class="form-group furniture-input d-none">
+        <label for="height-input">Height <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="furniture-height">
+        <label for="width-input">Width <span class="text-danger">*</span> </label>
+        <input type="text" class="form-control" id="furniture-width">
+        <label for="length-input">Length<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="furniture-length">
+    </div>
+
+    <div class="form-group dvd-input d-none">
+        <label for="weight-input">Weight<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="weight-input">
+    </div>
 </div>
