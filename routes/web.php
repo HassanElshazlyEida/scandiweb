@@ -3,10 +3,7 @@
 require_once 'app/config/Router.php';
 require_once 'app/config/Helper.php';
 
-$_SERVER['BASE'] = '/scandiweb/';
-$uri = str_replace($_SERVER['BASE'], '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-
-// $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
 Router::get("/",function(){
