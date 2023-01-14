@@ -9,8 +9,18 @@ foreach(glob($seeder_folder.'*.php') as $file) {
     include_once $file;
 }
 
+$DatabaseSeeders=[
+    new BookSeeder(),
+    new DVDSeeder(),
+    new FurnitureSeeder(),
+    new ProductSeeder(),
+
+];
+
+$input=readline('Do you want to create tables before seeding [y/n] ? ');
+
 //loop through the seeders and run the run method
-foreach(get_declared_classes() as $class) {
+foreach($DatabaseSeeders as $class) {
     if (is_subclass_of($class, 'Seeder')) {
         $seeder = new $class();
         $seeder->run();
