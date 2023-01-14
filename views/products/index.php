@@ -28,11 +28,12 @@
                                     <input type="checkbox" class="form-check-input delete-checkbox" id="<?php echo $row['id']; ?>"/>
                                     <label class="form-check-label" for="<?php echo $row['id']; ?>">Select</label>
                                 </div>
-                                <h5 class="card-title">ID: <?php echo $row['id']; ?></h5>
                                 <p class="card-text">SKU: <?php echo $row['sku']; ?></p>
                                 <p class="card-text">Name: <?php echo $row['name']; ?></p>
-                                <p class="card-text">Price: <?php echo $row['price']; ?></p>
-                            
+                                <p class="card-text">Price: <?php echo $row['price']; ?> $</p>
+                                <p class="card-text"><?php echo $data[$row['type']] ?><br> <?php echo $row[$row['type']]  ?></p> 
+                               
+                     
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
         <div class="d-flex flex-row">
             <h1>Product List</h1>
         </div>
-        <form class="ml-2" action="/product/store" method="POST" id="product_form" novalidate>
+        <form class="ml-2" action="/products/store" method="POST" id="product_form" novalidate>
             <div class="d-flex flex-row-reverse">
             
                 <input type="hidden" name="token" value="<?php echo bin2hex(random_bytes(32)); ?>">
@@ -45,23 +45,27 @@
             }
         });
 
-        $("#product_form").on("submit", function(event){
+        $("#product_form").submit(function(event){
             event.preventDefault();
             data= {};
             if (type === 'book') {
+                data= {};
                 data.weight = $('#weight-input').val();
             } else if (type === 'furniture') {
+                data= {};
                 data.height = $('#furniture-height').val();
                 data.width = $('#furniture-width').val();
                 data.length = $('#furniture-length').val();
             } else if (type === 'dvd') {
+                data= {};
                 data.size = $('#size-input').val();
             }
-            
+            $("#types").val(JSON.stringify(data));
+          
             // send ajax request
             $.ajax({
                 type: "POST",
-                url: "/products/store",
+                url: "/products/validate",
                 headers: {
                     'Authorization': 'Bearer ' + $("input[name='token']").val,
                 },
@@ -73,8 +77,8 @@
                     product_type: ($.isEmptyObject(data))?"":  data
                 },
                 success: function(response) {
-                    if(response == true ){
-                        location.href="/products";
+                    if(response == 1 ){
+                        event.currentTarget.submit()
                     }else {
                         $("#text-alert").text(response);
                         showAlert();

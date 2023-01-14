@@ -31,7 +31,7 @@ class ProductSeeder extends Database implements Seeder
             name VARCHAR(255) NOT NULL,
             price DECIMAL(10,2) NOT NULL,
             type_id INT NOT NULL,
-            type ENUM('Furniture', 'DVD', 'Book') NOT NULL,
+            type ENUM('Furniture', 'Dvd', 'Book') NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );";

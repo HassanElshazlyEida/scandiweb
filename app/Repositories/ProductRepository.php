@@ -20,5 +20,9 @@ class ProductRepository implements Repository
     {
         return  new ProductValidation();
     }
+    public  function redirect()
+    {
+        return "/products";
+    }
            
 }

@@ -15,44 +15,49 @@ class Product  extends Model  {
         "type_id"
     
     ];  
+    protected $associated_tables=[
+        "dvd"=>"dvds",
+        "book"=>"books",
+        "furniture"=>"furniture"
+    ];
+    public function __construct()
+    {
+        parent::__construct();
+        $this->stmt="
+        SELECT products.*, books.weight as Book , dvds.size as Dvd  , GROUP_CONCAT(CONCAT(furniture.height, ' x ', furniture.width, ' x' , furniture.length) SEPARATOR ';') as Furniture 
+        FROM products
+            LEFT JOIN books ON products.type = 'Book' AND products.type_id = books.id
+            LEFT JOIN dvds ON products.type = 'Dvd' AND products.type_id = dvds.id
+            LEFT JOIN furniture ON products.type = 'Furniture' AND products.type_id = furniture.id 
+        GROUP BY products.id
+        LIMIT ? OFFSET ?
+        ";
+    }
     // override store method
     public  function store($data){
         
         $type = $data['type'];
-        $sku=$data["sku"];
-        $price=$data["price"];
-        $name=$data["name"];
         
-        if ($type === "book") {
-            $weight = $data['product_type']['weight'];
-      
-            $sql = "INSERT INTO books (weight) VALUES ('$weight')";
-            $this->pdo->query($sql);
-            $book_id = $this->pdo->lastInsertId();
-         
-            $sql = "INSERT INTO products (sku, name, price , type, type_id) VALUES ('$sku', '$name', '$price', 'Book', $book_id)";
-            $this->pdo->query($sql);
-        } else if ($type === "furniture") {
-            $height = $data['product_type']['height'];
-            $width = $data['product_type']['width'];
-            $length = $data['product_type']['length'];
+        $keys=implode(",",array_keys(json_decode($data['product_type'][0],true)));
+        $values=implode("','",array_values(json_decode($data['product_type'][0],true)));
+        $table=$this->associated_tables[$type];
 
-            $sql = "INSERT INTO furniture (height, width, length) VALUES ('$height', '$width', '$length')";
-            $this->pdo->query($sql);
-            $furniture_id = $this->pdo->lastInsertId();
+        $this->pdo->query("INSERT INTO $table ($keys) VALUES('$values') ");
 
-            $sql = "INSERT INTO products (sku, name, price , type, type_id) VALUES ('$sku', '$name', '$price', 'Furniture', $furniture_id)";
+        unset($data['product_type']);
+        unset($data['token']);
+        
+        $data['type_id']=$this->pdo->lastInsertId();
+        $data['type']=ucfirst($type);
 
+        $keys=implode(",",array_keys($data));
+        $values=implode("','",array_values($data));
+
+        $sql = "INSERT INTO $this->table ($keys) VALUES ('$values')";
         $this->pdo->query($sql);
-        }else if ($type === "dvd") {
-            $size = $data['product_type']['size'];
-            $sql = "INSERT INTO dvds (size) VALUES ('$size')";
-            $this->pdo->query($sql);
-            $dvd_id = $this->pdo->lastInsertId();
-            $sql = "INSERT INTO products (sku, name, price , type, type_id) VALUES ('$sku', '$name', '$price', 'Dvd', $dvd_id)";
-            $this->pdo->query($sql);
-        }
+
     }
+
 
     
 }

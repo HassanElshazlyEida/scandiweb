@@ -4,7 +4,7 @@ class Controller  {
 
     protected $repository;
     protected bool $with_paginate = false;
-    
+    protected array $options =[];
 
     public function all()
     {
@@ -24,7 +24,7 @@ class Controller  {
         }else {
             $data=$this->all();
         }
-        return $this->view("index",$data);
+        return $this->view("index",$data + $this->options);
     }   
     public function create()
     {
@@ -33,16 +33,9 @@ class Controller  {
 
     public function store($parameters,$query)
     {
-        $validator= $this->repository->validator();
-        $validationResult = $validator->validate($query);
-
-        if($validationResult !== true) {
-            echo  $validator->firstError();
-        }else {
-            $obj=$this->repository->model();
-            $obj->store($query);
-            echo true;
-        }
+        $obj=$this->repository->model();
+        $obj->store($_POST);
+        redirect($this->repository->redirect());
     }
     public function delete($parameters,$query)
     {
@@ -51,6 +44,17 @@ class Controller  {
     {
         $obj=$this->repository->model();
         $obj->deleteAll($query["ids"]);
+    }
+    public function validate($parameters,$query){
+        $validator= $this->repository->validator();
+        $validationResult = $validator->validate($query);
+
+        if($validationResult !== true) {
+            echo  $validator->firstError();
+        }else {
+            echo true;
+        }
+       
     }
 
     protected function view($filename="",$data=[]){
