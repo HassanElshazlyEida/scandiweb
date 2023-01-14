@@ -20,7 +20,7 @@ class Database  {
             
             header("HTTP/1.0 500 Internal Server Error");
             render("error/500",$e->getMessage());
-            exit();
+      
           
         }
         

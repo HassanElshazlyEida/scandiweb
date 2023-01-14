@@ -35,8 +35,9 @@ class Controller  {
     {
         $validator= $this->repository->validator();
         $validationResult = $validator->validate($query);
+
         if($validationResult !== true) {
-            echo  $validationResult;
+            echo  $validator->firstError();
         }else {
             $obj=$this->repository->model();
             $obj->store($query);

@@ -3,7 +3,7 @@
         <div class="d-flex flex-row">
             <h1>Product List</h1>
         </div>
-        <form class="ml-2" action="/product/store" method="POST" id="product_form">
+        <form class="ml-2" action="/product/store" method="POST" id="product_form" novalidate>
             <div class="d-flex flex-row-reverse">
             
                 <input type="hidden" name="token" value="<?php echo bin2hex(random_bytes(32)); ?>">
@@ -18,13 +18,11 @@
 </div>
 
 <script>
-    var data = {
-        type: null
-    };
+    var type = null;
     $(document).ready(function() {
         $('#product-Type').change(function() {
             var selectedOption = $(this).val();
-            data.type = selectedOption;
+            type = selectedOption;
             if (selectedOption === 'book') {
 
                 $('.book-input').addClass("d-block-important");
@@ -49,15 +47,15 @@
 
         $("#product_form").on("submit", function(event){
             event.preventDefault();
-           
-            if (data.type === 'book') {
-                data.size = $('#size-input').val();
-            } else if (data.type === 'furniture') {
+            data= {};
+            if (type === 'book') {
+                data.weight = $('#weight-input').val();
+            } else if (type === 'furniture') {
                 data.height = $('#furniture-height').val();
                 data.width = $('#furniture-width').val();
                 data.length = $('#furniture-length').val();
-            } else if (data.type === 'dvd') {
-                data.weight = $('#weight-input').val();
+            } else if (type === 'dvd') {
+                data.size = $('#size-input').val();
             }
             
             // send ajax request
@@ -71,11 +69,12 @@
                     sku:    $("#sku").val(),
                     price:  $("#price").val(),
                     name:   $("#name").val(),
-                    type:   data
+                    type:   ($.isEmptyObject(type))?"":type,
+                    product_type: ($.isEmptyObject(data))?"":  data
                 },
                 success: function(response) {
                     if(response == true ){
-                        location.href ="/products";
+                        location.href="/products";
                     }else {
                         $("#text-alert").text(response);
                         showAlert();
