@@ -27,32 +27,7 @@ class NewModel extends Model {
 }
 ```
 
-## Implementing Repositories
 
-To implement a repository for your model, you can create a new class that implements the Repository interface and attach any necessary properties and functions. 
-For example:
-
-```
-class NewModelRepository implements Repository {
-
-    public  function model()
-    {
-      
-    }
-    public  function views()
-    {
-       
-    }
-    public  function Validator()
-    {
-      
-    }
-    public  function redirect()
-    {
-       
-    }
-}
-```
 ## Validation
 
 For validation, you can extend the RuleValidation class and set the available validation rules in the $rules property. For example:
@@ -67,6 +42,32 @@ class NewModelValidation extends RuleValidation {
         "field3"  =>     ['required','array'],
         "field3.*"=>     ['required',"numeric"]
     ];
+}
+```
+## Implementing Repositories
+
+To implement a repository for your model, you can create a new class that implements the Repository interface and attach any necessary properties and functions. 
+For example:
+
+```
+class NewModelRepository implements Repository {
+
+    public  function model()
+    {
+        return new NewModel();
+    }
+    public  function views()
+    {
+       return "new-models/";
+    }
+    public  function Validator()
+    {
+      return new NewModelValidation();
+    }
+    public  function redirect()
+    {
+       return "/newModels";
+    }
 }
 ```
 ## Creating Controllers
