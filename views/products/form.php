@@ -13,7 +13,7 @@
     </div>
     <div class="form-group">
         <label for="type-switcher">Type Switcher <span class="text-danger">*</span></label>
-        <select class="form-control" id="product-Type" required name="type">
+        <select class="form-control" id="productType" required name="type">
             <option value="">Select .. </option>
             <option value="book">Book</option>
             <option value="furniture">Furniture</option>

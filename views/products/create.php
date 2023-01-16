@@ -20,7 +20,7 @@
 <script>
     var type = null;
     $(document).ready(function() {
-        $('#product-Type').change(function() {
+        $('#productType').change(function() {
             var selectedOption = $(this).val();
             type = selectedOption;
             if (selectedOption === 'book') {
