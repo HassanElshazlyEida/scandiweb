@@ -50,15 +50,15 @@
             data= {};
             if (type === 'book') {
                 data= {};
-                data.weight = $('#weight-input').val();
+                data.weight = $('#weight').val();
             } else if (type === 'furniture') {
                 data= {};
-                data.height = $('#furniture-height').val();
-                data.width = $('#furniture-width').val();
-                data.length = $('#furniture-length').val();
+                data.height = $('#height').val();
+                data.width = $('#width').val();
+                data.length = $('#length').val();
             } else if (type === 'dvd') {
                 data= {};
-                data.size = $('#size-input').val();
+                data.size = $('#size').val();
             }
             $("#types").val(JSON.stringify(data));
           
