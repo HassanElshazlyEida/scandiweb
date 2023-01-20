@@ -4,12 +4,23 @@ This project is a simple PHP framework that allows you to easily set up a databa
 
 ## Database Configuration
 
-To set up the database, you will need to edit the `app/config/Database.php` file and update the following fields with your database credentials:
+In order to connect to a database, you will need to create a **`.env`** file and insert the following keys:
 
-- `$db_name`: The name of your database
-- `$username`: Your database username
-- `$password`: Your database password
-- `$host`: The hostname or IP address of your database server
+- `DB_DATABASE`: The name of the database you want to connect to.
+- `DB_USERNAME`: The username to use when connecting to the database.
+- `DB_PASSWORD`: The password to use when connecting to the database.
+- `DB_HOST`: The hostname or IP address of the database server.
+-  `DB_PORT`: The port number to use when connecting to the database.
+
+Example
+```
+DB_DATABASE=scandiweb
+DB_USERNAME=root
+DB_PASSWORD=root
+DB_HOST=127.0.0.1
+DB_PORT=8000
+```
+
 
 ## Seeding the Database
 
