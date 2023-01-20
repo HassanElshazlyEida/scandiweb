@@ -17,24 +17,10 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        function showAlert() {
-            $("#alert").removeClass("d-none");
-            $("#alert").animate({
-                left: "0%"
-            }, 300);
-            setTimeout(hideAlert, 3000);
-        }
-
-        function hideAlert() {  
-            $("#alert").animate({
-                left: "-100%"
-            }, 300, function(){
-                $("#alert").addClass("d-none");
-            });
-        }
-    </script>
+    <script src="/public/js/main.js"></script>
     <div id="alert" class="alert alert-danger d-none">
         <strong>Error!</strong> 
-        <p id="text-alert">Please fill in all required fields.</p> 
+        <p id="text-alert">
+            
+        </p> 
     </div>
