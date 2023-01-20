@@ -12,10 +12,11 @@ class Database  {
 
     public function __construct()
     {
-         $this->db_name = env("DB_DATABASE");
-         $this->username= env("DB_USERNAME");
-         $this->password= env("DB_PASSWORD");
-         $this->host= env("DB_HOST").":".env("DB_PORT","");
+        $this->db_name = env("DB_DATABASE");
+        $this->username= env("DB_USERNAME");
+        $this->password= env("DB_PASSWORD");
+        $this->host= env("DB_HOST").((env("DB_PORT"))?":".env("DB_PORT"):'');
+        
         try {
             $this->pdo=new PDO("mysql:host=".$this->host.";dbname=".$this->db_name,$this->username,$this->password);
            
