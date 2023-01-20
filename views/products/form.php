@@ -21,16 +21,16 @@
         </select>
     </div>
 
-    <div class="form-group dvd-input  d-none">
+    <div class="form-group dvd-input  product_type d-none">
         <label for="size-input">Size <span class="text-danger">*</span></label>
         <input type="number" class="form-control" id="size" required >
     </div>
 
-    <div class="form-group book-input d-none">
+    <div class="form-group book-input product_type d-none">
         <label for="weight-input">Weight<span class="text-danger" >*</span></label>
         <input type="number" class="form-control" id="weight"  required>
     </div>
-    <div class="form-group furniture-input d-none">
+    <div class="form-group furniture-input product_type d-none">
         <label for="height-input">Height <span class="text-danger">*</span></label>
         <input type="number" class="form-control" id="height" required >
         <label for="width-input">Width <span class="text-danger">*</span> </label>

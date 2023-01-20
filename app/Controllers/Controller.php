@@ -5,7 +5,7 @@ class Controller  {
     protected $repository;
     protected bool $with_paginate = false;
     protected array $options =[];
-
+    protected $stmt;
     public function all()
     {
         $obj=$this->repository->model();
@@ -14,7 +14,7 @@ class Controller  {
     public function paginate()
     {
         $obj=$this->repository->model();
-        return $obj->paginate();
+        return $obj->paginate($this->stmt ?? null);
     }  
 
     public function index()

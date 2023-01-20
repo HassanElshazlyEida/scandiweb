@@ -23,43 +23,18 @@
         $('#productType').change(function() {
             var selectedOption = $(this).val();
             type = selectedOption;
-            if (selectedOption === 'book') {
-
-                $('.book-input').addClass("d-block-important");
-                $('.furniture-input').removeClass("d-block-important");
-                $('.dvd-input').removeClass("d-block-important");
-
-            } else if (selectedOption === 'furniture') {
-
-                $('.book-input').removeClass("d-block-important");
-                $('.furniture-input').addClass("d-block-important");
-                $('.dvd-input').removeClass("d-block-important");
-
-
-            } else if (selectedOption === 'dvd') {
-
-                $('.book-input').removeClass("d-block-important");
-                $('.furniture-input').removeClass("d-block-important");
-                $('.dvd-input').addClass("d-block-important");
-
-            }
+            $('.product_type').removeClass("d-block-important");
+            $('.'+type+'-input').addClass("d-block-important");      
         });
 
         $("#product_form").submit(function(event){
             event.preventDefault();
-            data= {};
-            if (type === 'book') {
-                data= {};
-                data.weight = $('#weight').val();
-            } else if (type === 'furniture') {
-                data= {};
-                data.height = $('#height').val();
-                data.width = $('#width').val();
-                data.length = $('#length').val();
-            } else if (type === 'dvd') {
-                data= {};
-                data.size = $('#size').val();
-            }
+            var data = {};
+            $('.'+type+'-input').find('input').each(function(){
+                var inputName= $(this).attr('id');
+                var inputVal = $(this).val();
+                data[inputName] = inputVal;
+            });
             $("#types").val(JSON.stringify(data));
           
             // send ajax request

@@ -20,19 +20,7 @@ class Product  extends Model  {
         "book"=>"books",
         "furniture"=>"furniture"
     ];
-    public function __construct()
-    {
-        parent::__construct();
-        $this->stmt="
-        SELECT products.*, books.weight as Book , dvds.size as Dvd  , GROUP_CONCAT(CONCAT(furniture.height, ' x ', furniture.width, ' x' , furniture.length) SEPARATOR ';') as Furniture 
-        FROM products
-            LEFT JOIN books ON products.type = 'Book' AND products.type_id = books.id
-            LEFT JOIN dvds ON products.type = 'Dvd' AND products.type_id = dvds.id
-            LEFT JOIN furniture ON products.type = 'Furniture' AND products.type_id = furniture.id 
-        GROUP BY products.id
-        LIMIT ? OFFSET ?
-        ";
-    }
+    
     // override store method
     public  function store($data){
         

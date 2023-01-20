@@ -7,20 +7,20 @@ require_once 'app/config/Database.php';
 class Model extends Database implements QueryBuilder {
     protected $itemsPerPage = 10;
     protected $table="";
-    protected $stmt;
+  
     public function all(){
        
         $stm=$this->pdo->query("SELECT * FROM $this->table ");
         return  $stm->fetchAll(self::$obj);
     }
-    public function paginate(){
+    public function paginate($stmt){
         
 
         $currentPage = $_GET['page'] ?? 1 ; //current page
         $offset = (($_GET['page'] ?? 1 ) - 1) * $this->itemsPerPage; // start collecting from offset number
       
-        if($this->stmt){
-            $stmt = $this->pdo->prepare($this->stmt);
+        if($stmt){
+            $stmt = $this->pdo->prepare($stmt);
         }else {
             $stmt = $this->pdo->prepare("SELECT * FROM  $this->table LIMIT ? OFFSET ?");
         }       
