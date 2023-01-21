@@ -54,6 +54,7 @@ class Model extends Database implements QueryBuilder {
         $values=implode("','",array_values($data));
 
         $this->pdo->query("INSERT INTO $this->table ($keys) VALUES('$values') ");
+        return true;
     }
     public  function update($id,$data=[]){}
     public  function delete($id){}

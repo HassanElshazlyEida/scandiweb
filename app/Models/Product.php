@@ -44,6 +44,8 @@ class Product  extends Model  {
         $sql = "INSERT INTO $this->table ($keys) VALUES ('$values')";
         $this->pdo->query($sql);
 
+        return true;
+
     }
 
 

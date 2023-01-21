@@ -40,7 +40,7 @@ class BookSeeder extends Database implements Seeder
         
        
         // prepare statement
-        $this->stmt();
+    $this->stmt();
         // Create an array of products
         $books = [
             ['15'],

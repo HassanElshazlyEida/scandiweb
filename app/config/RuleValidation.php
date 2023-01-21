@@ -9,10 +9,11 @@ class RuleValidation extends  Database  {
         parent::__construct();
     }
     public function validate($data){
+
         foreach ($this->rules as $field => $field_rules) {
             if(strpos($field, '.*')!== false) { 
                 $field = str_replace(".*", "", $field);
-                if(!empty($data[$field])){
+                if(!empty($data[$field]) && (is_array($data[$field]))){
                     foreach ($data[$field] as $key => $val) {
                         foreach ($field_rules as $rule) {
                             if ($rule === 'required') {
@@ -34,6 +35,8 @@ class RuleValidation extends  Database  {
                             }
                         }
                     }
+                }else {
+                    $errors[$field][] = 'Require all inputs of '. str_replace("_"," ",ucfirst($field));
                 }
             }else{
                 foreach ($field_rules as $key=>$rule) {
@@ -112,6 +115,9 @@ class RuleValidation extends  Database  {
     }
     public function firstError() {
         return reset($this->errors)[0];
+    }
+    public function errors() {
+        return $this->errors;
     }
     
 }
