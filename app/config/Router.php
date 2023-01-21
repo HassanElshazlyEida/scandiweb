@@ -1,7 +1,7 @@
 <?php 
 class Router
 {
-    protected static $routes = [
+    public static $routes = [
         'GET' => [],
         'POST' => [],
         'PUT' => [],
@@ -32,12 +32,14 @@ class Router
     {
         $uri = preg_replace('/{[\w]+}/', '([\w-]+)', $uri);
         self::$routes[$requestType][$uri] = [$controller, $method];
-    }
+    }   
 
     public static function direct($uri, $requestType)
-    {
+    {   
+        
         if (!array_key_exists($requestType, self::$routes)) {
             render("error/500",'Invalid request type.');
+            return ;
         }
 
         $parameters = [];
@@ -64,13 +66,15 @@ class Router
         $file= $controllerNameSpace.$controller.".php";
         if (! file_exists($file)) {
             render("error/500","The controller {$controller} not exists.");
+            return ;
         }
         require_once $file;
-        $controller = new $controller;
-        if (! method_exists($controller, $method)) {
-            render("{$controller} does not respond to the {$method} action.");
+        $controller_obj = new $controller;
+        if (! method_exists($controller_obj, $method)) {
+            render("error/500","{$controller} does not respond to the {$method} action.");
+            return ;
         }
   
-        return $controller->$method($parameters, $query);
+        return $controller_obj->$method($parameters, $query);
     }
 }

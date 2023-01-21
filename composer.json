@@ -1,6 +1,12 @@
 {
     "require": {
         "phpunit/phpunit": "^9.5",
-        "pestphp/pest": "^1.22"
+        "pestphp/pest": "^1.22",
+        "guzzlehttp/guzzle": "^7.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
