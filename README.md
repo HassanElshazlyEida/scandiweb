@@ -103,5 +103,20 @@ Router::get("/newmodel",'NewModelController',"index");
 Router::post("/newmodel/store",'NewModelController',"store");
 ```
 
+
+## Running Tests
+This project uses PHPUnit as its testing framework.
+
+To run the tests, navigate to the project's root directory and run the following command:
+```
+./vendor/bin/phpunit
+```
+## Troubleshooting
+
+- Make sure that PHPUnit is installed on your system.
+- Verify that the project's dependencies have been installed by running composer install.
+- If you are unable to run tests, make sure that the project's root directory is in the correct location.
+- If you still have issues, please check the project's documentation or contact the maintainers for further assistance.
+
 Make sure to run the project in a PHP server, and you are good to go!
 Please let me know if you have any question or need any help.
