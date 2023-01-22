@@ -119,6 +119,10 @@ Class ProductTest extends \PHPUnit\Framework\TestCase {
             "price" => 
             [
                 "Price must be numeric."
+            ],
+            "type"=>
+            [
+                "Type is not in the list of allowed values."
             ]
             ,
             "product_type" => 

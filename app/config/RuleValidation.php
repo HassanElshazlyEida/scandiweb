@@ -57,6 +57,13 @@ class RuleValidation extends  Database  {
                             $errors[$field][] = $error;
                         }
                     }
+                    else if(strpos($rule, 'in:')!== false) {
+                        $error =$this->is_in_array($data[$field],$field,$rule) ;
+                        if(!empty($error)){
+                            $errors[$field][] = $error;
+                        }
+                        
+                    }
                     else if (strpos($rule, 'array') !== false) {
                         $error =$this->is_field_array($data[$field],$field,$rule) ;
                         if(!empty($error)){
